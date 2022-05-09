@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+
+
+
 @Controller
 public class HomeController implements CommandLineRunner {
 
@@ -30,8 +33,8 @@ public class HomeController implements CommandLineRunner {
 	}
 
 	@GetMapping("/food")
-	public String food(Model model) {
-		model.addAttribute("name", nameUser);
+	public String food(User user,Model model) {
+		model.addAttribute("user", user);
 		return "user/food";
 	}
 
@@ -47,10 +50,9 @@ public class HomeController implements CommandLineRunner {
 		return "signup_form";
 	}
 
-	@GetMapping("/loginuser")
+	@GetMapping("/login")
 	public String loginuser(Model model) {
 		model.addAttribute("user", new User());
-
 		return "login";
 	}
 
@@ -79,7 +81,11 @@ public class HomeController implements CommandLineRunner {
 			result = true;
 			nameUser=user.getName();
 			model.addAttribute("user", user);
-			return "user/index";
+			System.out.println(user.getIsAdmin());
+			if(user.getIsAdmin()=="1")
+				return "admin/index";
+			else
+				return "user/index";
 		}
 		return "login";
 	}

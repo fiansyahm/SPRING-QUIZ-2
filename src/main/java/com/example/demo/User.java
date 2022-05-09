@@ -20,7 +20,7 @@ public class User {
     private String password;
      
     @Column(nullable = true, length = 20)
-    private Integer isAdmin;
+    private String isAdmin;
 
     public Object user;
 
@@ -56,11 +56,11 @@ public class User {
         this.password = password;
     }
 
-    public Integer getIsAdmin() {
+    public String getIsAdmin() {
         return this.isAdmin;
     }
 
-    public void setIsAdmin(Integer isAdmin) {
+    public void setIsAdmin(String isAdmin) {
         this.isAdmin = isAdmin;
     }
      

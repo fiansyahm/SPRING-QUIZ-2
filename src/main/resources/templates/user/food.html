@@ -126,13 +126,8 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="https://pbkkets.000webhostapp.com/logout" onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
-                  Logout
-                </a>
-
-                            <form id="logout-form" action="https://pbkkets.000webhostapp.com/logout" method="POST" class="d-none">
-                                <input type="hidden" name="_token" value="fXznQwdMTjL46NWvFVcCmkxPFHANQfQjyrMR6OQn" />
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Sign Out" />
                             </form>
                         </div>
                     </li>
