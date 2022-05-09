@@ -71,7 +71,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/process_login")
 	public String processLogin(User user,Model model) {
-		String sql = "SELECT count(*) FROM USERS WHERE email = ? AND password=?";
+		String sql = "SELECT count(*) FROM users WHERE email = ? AND password=?";
 		boolean result = false;
 
 		int count = jdbcTemplate.queryForObject(
