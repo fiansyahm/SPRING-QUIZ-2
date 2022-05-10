@@ -172,6 +172,8 @@
             </form>
             <form th:action="@{/edit-category}" th:object="${category}" method="post">
                 <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
+                <input th:field="*{id}" type="name" class="form-control " id="id" name="id" th:value="${Category.id}" hidden>
+                <input th:field="*{image}" type="name" class="form-control " id="image" name="image" th:value="${Category.image}" hidden>
                 <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Category.name}" hidden>
                 <button type="submit"  class="btn btn-success">Edit</button>
             </form>
@@ -214,18 +216,7 @@
                       role="group"
                       aria-label="Basic example"
                     >
-                      <!-- <a
-                        href="/food/destroy/8"
-                        type="button"
-                        class="btn btn-warning"
-                        >Delete</a
-                      >
-                      <a
-                        href="/food/edit/8"
-                        type="button"
-                        class="btn btn-success"
-                        >Edit</a
-                      > -->
+                
                       <form th:action="@{/delete-food}" th:object="${food}" method="post">
                         <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
                         <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Food.name}" hidden>
@@ -233,7 +224,11 @@
                     </form>
                     <form th:action="@{/edit-food}" th:object="${food}" method="post">
                         <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
+                        <input th:field="*{id}" type="id" class="form-control " id="id" name="id" th:value="${Food.id}" hidden>
                         <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Food.name}" hidden>
+                        <input th:field="*{price}" type="price" class="form-control " id="price" name="price" th:value="${Food.price}" hidden>
+                        <input th:field="*{description}" type="description" class="form-control " id="description" name="description" th:value="${Food.description}" hidden>
+                        <input th:field="*{image}" type="name" class="form-control " id="image" name="image" th:value="${Food.image}" hidden>
                         <button type="submit"  class="btn btn-success">Edit</button>
                     </form>
                     </div>

@@ -236,6 +236,74 @@ public class HomeController implements CommandLineRunner {
 		
 	}
 
+
+	@PostMapping("/edit-category")
+	public String processEditCategory(Category category, Model model) {
+		model.addAttribute("category", category);
+		return "admin/edit-category";
+		
+	}
+
+	@PostMapping("/update-category")
+	public String processUpdateCategory(Category category, Model model) {
+		String sql = 
+		"UPDATE categories SET name = ?, image= ? WHERE id = ?";
+
+		int result = jdbcTemplate.update(sql,category.getName(),category.getImage(),category.getId());
+
+		String sql2 = "SELECT * FROM categories";
+		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
+		String sql1 = "SELECT * FROM food";
+		List<Food> foods = jdbcTemplate.query(sql1,new FoodMapper());
+		model.addAttribute("categories", categories);
+		model.addAttribute("foods", foods);
+
+		
+
+		if (result > 0) {
+			System.out.println("A new row has been deleted.");
+		}
+		
+		return "beforelogin/index";
+		
+	}
+
+	@PostMapping("/edit-food")
+	public String processEditFood(Food food, Model model) {
+		String sql2 = "SELECT * FROM categories";
+		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
+		model.addAttribute("categories", categories);
+		model.addAttribute("food", food);
+		
+		return "admin/edit-food";
+		
+	}
+
+	@PostMapping("/update-food")
+	public String processUpdateFood(Food food, Model model) {
+		String sql = 
+		"UPDATE food SET name = ?, image= ?, description= ?, price= ?, categoryId= ?    WHERE id = ?";
+
+		int result = jdbcTemplate.update(sql,food.getName(),food.getImage(),food.getDescription(),food.getPrice(),food.getCategoryId(),food.getId());
+
+		String sql2 = "SELECT * FROM categories";
+		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
+		String sql1 = "SELECT * FROM food";
+		List<Food> foods = jdbcTemplate.query(sql1,new FoodMapper());
+		model.addAttribute("categories", categories);
+		model.addAttribute("foods", foods);
+
+		
+
+		if (result > 0) {
+			System.out.println("A new row has been deleted.");
+		}
+		
+		return "beforelogin/index";
+		
+	}
+
+
 	
 
 }
