@@ -121,18 +121,14 @@
                         <a class="nav-link text-danger" href="/food">Food</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                123
-                            </a>
+                        <a th:object="${user}" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <span th:text="*{email}" />
+                        </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="https://pbkkets.000webhostapp.com/logout" onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                            <form id="logout-form" action="https://pbkkets.000webhostapp.com/logout" method="POST" class="d-none">
-                                <input type="hidden" name="_token" value="pEW56ZFXOkJL7Ek8RktEAvNyqJ36A7RfszSIG1Pt"> </form>
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Sign Out" />
+                            </form>
                         </div>
                     </li>
                 </ul>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <!-- Required meta tags -->
@@ -102,6 +102,29 @@
 </head>
 
 <body>
+    <!-- <div class="container">
+        <div class="row">
+            <h1>Employees</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee First Name</th>
+                        <th>Employee Last Name</th>
+                        <th>Employee Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.isAdmin}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> -->
+
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid mx-5 px-5">
@@ -115,21 +138,10 @@
                         <a class="nav-link text-danger" href="/">Home</a>
                     </li>
                     <li class="nav-item mycolor">
-                        <a class="nav-link text-danger" href="/categories">Categories</a>
+                        <a class="nav-link text-danger" href="/categories">Cate gories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="/food">Food</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a th:object="${user}" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <span th:text="*{email}" />
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <form th:action="@{/logout}" method="post">
-                                <input type="submit" value="Sign Out" />
-                            </form>
-                        </div>
                     </li>
                 </ul>
             </div>
@@ -141,7 +153,7 @@
     <section class="food-search text-center">
         <div class="container">
             <form action="/search-food" method="POST">
-                <input type="hidden" name="_token" value="pEW56ZFXOkJL7Ek8RktEAvNyqJ36A7RfszSIG1Pt" />
+                <input type="hidden" name="_token" value="fXznQwdMTjL46NWvFVcCmkxPFHANQfQjyrMR6OQn" />
                 <input type="search" name="search" placeholder="Search for Food.." required />
                 <input type="submit" name="submit" value="Search" class="btn btn-danger" />
             </form>
@@ -153,38 +165,13 @@
     <section class="categories my-5">
         <h2 class="text-center">Explore Foods</h2>
 
-        <a href="/add-category" class="btn btn-primary" style="margin-left: 150px">Add Category</a
-      >
-
-      <div class="container row row-cols-1 row-cols-xxl-3 row-cols-md-3 g-4">
-       
-        <div th:each="Category : ${categories}" class="card text-white float-container border-0" href="#">
-            <img th:src="${Category.image}" class="card-img" />
-            <div class="card-img-overlay">
-                <h5 th:text="${Category.name}" class="card-title float-text"></h5>
+        <div class="container row row-cols-1 row-cols-xxl-3 row-cols-md-3 g-4">
+            <div th:each="Category : ${categories}" class="card text-white float-container border-0" href="#">
+                <img th:src="${Category.image}" class="card-img" />
+                <div class="card-img-overlay">
+                    <h5 th:text="${Category.name}" class="card-title float-text"></h5>
+                </div>
             </div>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            
-            <form th:action="@{/delete-category}" th:object="${category}" method="post">
-                <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-                <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Category.name}" hidden>
-                <button type="submit"  class="btn btn-warning">Delete</button>
-            </form>
-            <form th:action="@{/edit-category}" th:object="${category}" method="post">
-                <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-                <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Category.name}" hidden>
-                <button type="submit"  class="btn btn-success">Edit</button>
-            </form>
-
-            <!-- <form th:action="@{/delete-category}" th:object="${category}" method="post">
-                <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-                <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Category.name}" hidden>
-                <button type="submit" class="btn btn-warning">Delete</button>
-            </form> -->
-        
-          </div>
-        </div>                                                                                   </div>
-                                                                                                                                            </a> -->
         </div>
     </section>
     <!-- Categories Section Ends Here -->
@@ -193,7 +180,6 @@
     <section class="food-menu">
         <div class="container">
             <h2 class="text-center">Food Menu</h2>
-            <a href="/add-food" class="btn btn-primary my-5">Add Menu</a>
             <div class="row">
                 <div th:each="Food : ${foods}" class="col-md-6">
                     <!--  -->
@@ -206,37 +192,11 @@
                                 <div class="card-body">
                                     <h4 th:text="${Food.name}"></h4>
                                     <p th:text="${Food.price}" class="food-price"></p>
-                                    <p class="food-detail" th:text="${Food.description}"></p>
+                                    <p class="food-detail" th:text="${Food.description}">
+
+                                    </p>
                                     <a href="https://api.whatsapp.com/send?phone=6282331157233&text=Halo%20Wow%20Food%20Saya%20Mau%20Beli%20" class="btn btn-danger">Order Now</a
                     >
-                    <div
-                      class="btn-group"
-                      role="group"
-                      aria-label="Basic example"
-                    >
-                      <!-- <a
-                        href="/food/destroy/8"
-                        type="button"
-                        class="btn btn-warning"
-                        >Delete</a
-                      >
-                      <a
-                        href="/food/edit/8"
-                        type="button"
-                        class="btn btn-success"
-                        >Edit</a
-                      > -->
-                      <form th:action="@{/delete-food}" th:object="${food}" method="post">
-                        <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-                        <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Food.name}" hidden>
-                        <button type="submit"  class="btn btn-warning">Delete</button>
-                    </form>
-                    <form th:action="@{/edit-food}" th:object="${food}" method="post">
-                        <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-                        <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${Food.name}" hidden>
-                        <button type="submit"  class="btn btn-success">Edit</button>
-                    </form>
-                    </div>
                   </div>
                 </div>
               </div>
