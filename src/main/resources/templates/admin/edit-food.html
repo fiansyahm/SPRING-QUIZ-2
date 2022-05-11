@@ -157,7 +157,7 @@
         <h1 class="text-center">Add Food</h1>
         <form th:action="@{/update-food}" th:object="${food}" method="post">
             <input type="hidden" name="_token" value="zxHRTRnKlHzKhJqVlgb2pNAU0HCCuXN18aJ3FOMX">
-            <input th:field="*{id}" type="name" class="form-control " id="id" name="id" th:value="${food.id}">
+            <input th:field="*{id}" type="name" class="form-control " id="id" name="id" th:value="${food.id}" hidden>
             <div class="mb-3">
                 <label for="name" class="form-label">Name Of Food</label>
                 <input th:field="*{name}" type="name" class="form-control " id="name" name="name" th:value="${food.name}">

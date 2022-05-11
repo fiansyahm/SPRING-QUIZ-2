@@ -36,6 +36,7 @@ public class HomeController implements CommandLineRunner {
 		List<Food> foods = jdbcTemplate.query(sql1, new FoodMapper());
 		model.addAttribute("categories", categories);
 		model.addAttribute("foods", foods);
+		model.addAttribute("user", new User());
 		return "beforelogin/index";
 	}
 
@@ -48,6 +49,7 @@ public class HomeController implements CommandLineRunner {
 	@GetMapping("/add-category")
 	public String addcategory(Category category, Model model) {
 		model.addAttribute("category", category);
+		model.addAttribute("user", new User());
 		return "admin/add-category";
 	}
 
@@ -58,6 +60,7 @@ public class HomeController implements CommandLineRunner {
 		model.addAttribute("categories", categories);
 
 		model.addAttribute("food", food);
+		model.addAttribute("user", new User());
 		return "admin/add-food";
 	}
 
@@ -134,14 +137,15 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/create-category")
 	public String processCreateCategory(Category category, Model model) {
+		model.addAttribute("user", new User());
 
-		String counter = "SELECT count(*) FROM categories";
+		String counter = "SELECT * FROM categories";
 
-		List<Integer> count = jdbcTemplate.queryForList(counter, new Object[] {},Integer.class);
+		List<Category> count =  jdbcTemplate.query(counter,new CategoryMapper());
 
 		String sql = "INSERT INTO categories (id,name,image) VALUES (?,?,?)";
 
-		int result = jdbcTemplate.update(sql,count.size()+1, category.getName(), category.getImage());
+		int result = jdbcTemplate.update(sql,count.get(count.size()-1).getId()+1, category.getName(), category.getImage());
 
 		String sql2 = "SELECT * FROM categories";
 		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
@@ -161,14 +165,15 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/create-food")
 	public String processCreateFood(Food category, Model model) {
+		model.addAttribute("user", new User());
 
-		String counter = "SELECT count(*) FROM food";
+		String counter = "SELECT * FROM food";
 
-		List<Integer> count = jdbcTemplate.queryForList(counter, new Object[] {},Integer.class);
+		List<Food> count = jdbcTemplate.query(counter,new FoodMapper());
 
 		String sql = "INSERT INTO food (id,name,image,description,price,categoryId) VALUES (?,?,?,?,?,?)";
 
-		int result = jdbcTemplate.update(sql,count.size()+1, category.getName(), category.getImage(), category.getDescription(), category.getPrice(),category.getCategoryId());
+		int result = jdbcTemplate.update(sql,count.get(count.size()-1).getId()+1, category.getName(), category.getImage(), category.getDescription(), category.getPrice(),category.getCategoryId());
 
 		String sql2 = "SELECT * FROM categories";
 		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
@@ -188,6 +193,7 @@ public class HomeController implements CommandLineRunner {
 	
 	@PostMapping("/delete-category")
 	public String processDeleteCategory(Category category, Model model) {
+		model.addAttribute("user", new User());
 
 		String sql = "DELETE FROM categories WHERE name=?";
 
@@ -213,6 +219,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/delete-food")
 	public String processDeleteFood(Food food, Model model) {
+		model.addAttribute("user", new User());
 
 		String sql = "DELETE FROM food WHERE name=?";
 
@@ -239,6 +246,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/edit-category")
 	public String processEditCategory(Category category, Model model) {
+		model.addAttribute("user", new User());
 		model.addAttribute("category", category);
 		return "admin/edit-category";
 		
@@ -246,6 +254,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/update-category")
 	public String processUpdateCategory(Category category, Model model) {
+		model.addAttribute("user", new User());
 		String sql = 
 		"UPDATE categories SET name = ?, image= ? WHERE id = ?";
 
@@ -270,6 +279,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/edit-food")
 	public String processEditFood(Food food, Model model) {
+		model.addAttribute("user", new User());
 		String sql2 = "SELECT * FROM categories";
 		List<Category> categories = jdbcTemplate.query(sql2,new CategoryMapper());
 		model.addAttribute("categories", categories);
@@ -281,6 +291,7 @@ public class HomeController implements CommandLineRunner {
 
 	@PostMapping("/update-food")
 	public String processUpdateFood(Food food, Model model) {
+		model.addAttribute("user", new User());
 		String sql = 
 		"UPDATE food SET name = ?, image= ?, description= ?, price= ?, categoryId= ?    WHERE id = ?";
 

@@ -138,10 +138,21 @@
                         <a class="nav-link text-danger" href="/">Home</a>
                     </li>
                     <li class="nav-item mycolor">
-                        <a class="nav-link text-danger" href="/categories">Cate gories</a>
+                        <a class="nav-link text-danger" href="/categories">Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="/food">Food</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a th:object="${user}" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <span th:text="*{email}" />
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Sign Out" />
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>
