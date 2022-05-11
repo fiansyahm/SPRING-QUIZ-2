@@ -46,6 +46,12 @@ public class HomeController implements CommandLineRunner {
 		return "user/categories";
 	}
 
+	@GetMapping("/test")
+	public String test(User user, Model model) {
+		model.addAttribute("user", user);
+		return "register_success";
+	}
+
 	@GetMapping("/add-category")
 	public String addcategory(Category category, Model model) {
 		model.addAttribute("category", category);
